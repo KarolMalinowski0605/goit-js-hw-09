@@ -26,9 +26,9 @@ const options = {
   onClose(selectedDates) {
     
     const selectedDate = selectedDates[0];
-    const currentDate = new Date();
+    const currentDate = new Date().getTime();
 
-    if (selectedDate <= currentDate) {
+    if (selectedDate.getTime() <= currentDate) {
       Notiflix.Notify.failure("Please choose a date in the future", {
         timeout: 5000, 
       });
@@ -45,9 +45,9 @@ flatpickr(dateTimePicker, options);
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
 
-  const selectedDate = flatpickr.parseDate(dateTimePicker.value);
-  const currentDate = new Date();
-  const timeDifference = selectedDate - currentDate;
+  const selectedDateInMs = flatpickr.parseDate(dateTimePicker.value).getTime();
+  const currentDate = new Date().getTime();
+  const timeDifference = selectedDateInMs - currentDate;
 
   if (timeDifference <= 0) {
     Notiflix.Notify.failure("Please choose a date in the future", {
@@ -60,8 +60,9 @@ startButton.addEventListener('click', () => {
   let intervalId;
  
   intervalId = setInterval(() => {
-    const currentTime = new Date();
-    const timeLeft = selectedDate - currentTime;
+    const selectedDateInMs = flatpickr.parseDate(dateTimePicker.value).getTime();
+    const currentTime = new Date().getTime();
+    const timeLeft = selectedDateInMs - currentTime;
 
    
     if (timeLeft <= 0) {
