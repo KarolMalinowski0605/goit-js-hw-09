@@ -45,22 +45,12 @@ flatpickr(dateTimePicker, options);
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
 
-  const selectedDateInMs = flatpickr.parseDate(dateTimePicker.value).getTime();
-  const currentDate = new Date().getTime();
-  const timeDifference = selectedDateInMs - currentDate;
-
-  if (timeDifference <= 0) {
-    Notiflix.Notify.failure("Please choose a date in the future", {
-      timeout: 5000, 
-    });
-    startButton.disabled = false;
-  return;
-  }
+  
 
   let intervalId;
  
   intervalId = setInterval(() => {
-    const selectedDateInMs = flatpickr.parseDate(dateTimePicker.value).getTime();
+    const selectedDateInMs = new Date(dateTimePicker.value).getTime();
     const currentTime = new Date().getTime();
     const timeLeft = selectedDateInMs - currentTime;
 
